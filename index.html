@@ -68,20 +68,30 @@
 
         .instruction {
             position: absolute;
-            top: -60px;
+            top: -80px;
             left: 50%;
             transform: translateX(-50%);
-            color: var(--warm-cream);
-            font-size: 1.1rem;
+            color: #ff4444;
+            font-size: 2rem;
+            font-weight: 700;
             font-style: italic;
-            opacity: 0.9;
-            animation: pulse 2s ease-in-out infinite;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            opacity: 0.95;
+            animation: clickPulse 1.5s ease-in-out infinite;
+            text-shadow: 
+                0 0 10px rgba(255, 68, 68, 0.5),
+                0 2px 10px rgba(0, 0, 0, 0.5);
+            letter-spacing: 3px;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+        @keyframes clickPulse {
+            0%, 100% { 
+                opacity: 0.7;
+                transform: translateX(-50%) scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: translateX(-50%) scale(1.1);
+            }
         }
 
         /* 賀卡 */
@@ -208,17 +218,17 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 50px 40px;
+            padding: 60px 40px;
             z-index: 1;
         }
 
         .card-back::before {
             content: '';
             position: absolute;
-            top: 30px;
-            left: 30px;
-            right: 30px;
-            bottom: 30px;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
             border: 2px dashed var(--gold-accent);
             border-radius: 10px;
             opacity: 0.5;
@@ -230,10 +240,29 @@
             text-align: center;
             opacity: 0;
             transition: opacity 0.6s ease 0.8s;
+            width: 100%;
         }
 
         .card.open .inside-content {
             opacity: 1;
+        }
+
+        .top-greeting {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.1rem;
+            color: var(--gold-accent);
+            font-weight: 600;
+            font-style: italic;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            white-space: nowrap;
+            margin: 0;
+        }
+
+        .content-box {
+            margin-top: 60px;
         }
 
         .inside-title {
@@ -250,7 +279,7 @@
             font-size: 1rem;
             color: var(--warm-cream);
             line-height: 1.65;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             max-width: 480px;
         }
 
@@ -261,36 +290,50 @@
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
         }
 
-        .signature {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            font-style: italic;
-            color: var(--warm-cream);
-            margin-top: 15px;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .signature-english {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.4rem;
-            font-weight: 600;
-            font-style: normal;
-        }
-
-        .decorative-line {
-            width: 200px;
-            height: 2px;
-            background: linear-gradient(to right, transparent, var(--gold-accent), transparent);
-            margin: 10px auto;
-        }
-
         .stars {
             font-size: 1.4rem;
             letter-spacing: 8px;
             opacity: 0.8;
-            margin: 8px 0;
+            margin: 6px 0;
             color: var(--gold-accent);
+        }
+
+        /* 外部團隊簽名 */
+        .team-signature {
+            position: absolute;
+            bottom: -90px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.6s ease 1.4s;
+            z-index: 3;
+            white-space: nowrap;
+        }
+
+        .card.open .team-signature {
+            opacity: 1;
+        }
+
+        .team-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--warm-cream);
+            margin: 0 15px 0 0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            display: inline;
+        }
+
+        .team-english {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--gold-accent);
+            margin: 0;
+            text-shadow: 
+                0 0 10px rgba(212, 175, 55, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.5);
+            display: inline;
         }
 
         /* 響應式設計 */
@@ -319,25 +362,9 @@
             }
 
             .instruction {
-                font-size: 0.9rem;
-                top: -40px;
+                font-size: 1.5rem;
+                top: -60px;
             }
-        }
-
-        /* 點擊提示 */
-        .tap-hint {
-            position: absolute;
-            bottom: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--warm-cream);
-            font-size: 0.9rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .card:hover .tap-hint {
-            opacity: 0.7;
         }
     </style>
 </head>
@@ -347,35 +374,40 @@
 
     <!-- 主要內容 -->
     <div class="container">
-        <div class="instruction">✨ Click ✨</div>
+        <div class="instruction">👇 CLICK 👇</div>
         
         <div class="card" id="card">
             <!-- 內頁（底層）-->
             <div class="card-back">
                 <div class="inside-content">
-                    <h2 class="inside-title">溫馨祝福</h2>
-                    <div class="decorative-line"></div>
-                    
-                    <div class="stars">✧･ﾟ: *✧･ﾟ:*</div>
-                    
-                    <p class="message">
-                        <span class="highlight">Merry Christmas and Happy New Year!</span><br><br>
-                        May this festive season bring you<br>
-                        warmth, joy, and peace.<br>
-                        願這個佳節為您帶來<br>
-                        溫暖、喜悅與平安。<br><br>
-                        May the coming year be filled with<br>
-                        hope, health, and happiness.<br>
-                        願新的一年充滿<br>
-                        希望、健康與幸福。<br><br>
-                        <span class="highlight">Wishing you all the best!</span>
+                    <p class="top-greeting">
+                        <span class="highlight">Merry Christmas and Happy New Year!</span>
                     </p>
                     
-                    <div class="stars">*:･ﾟ✧*:･ﾟ✧</div>
-                    
-                    <div class="decorative-line"></div>
-                    <p class="signature">聯通開發團隊全體祝福<br><span class="signature-english">With Love from ITMC Dev Team 🎅</span></p>
+                    <div class="content-box">
+                        <div class="stars">✧･ﾟ: *✧･ﾟ:*</div>
+                        
+                        <p class="message">
+                            May this festive season bring you<br>
+                            warmth, joy, and peace.<br>
+                            願這個佳節為您帶來<br>
+                            溫暖、喜悅與平安。<br><br>
+                            May the coming year be filled with<br>
+                            hope, health, and happiness.<br>
+                            願新的一年充滿<br>
+                            希望、健康與幸福。<br><br>
+                            <span class="highlight">Wishing you all the best!</span>
+                        </p>
+                        
+                        <div class="stars">*:･ﾟ✧*:･ﾟ✧</div>
+                    </div>
                 </div>
+            </div>
+
+            <!-- 團隊簽名（卡片外部）-->
+            <div class="team-signature">
+                <span class="team-text">聯通開發團隊全體祝福</span>
+                <span class="team-english">With Love from ITMC Dev Team 🎅</span>
             </div>
 
             <!-- 封面（可翻轉的蓋子）-->
@@ -391,8 +423,6 @@
                     <div class="tree-emoji">🎄</div>
                 </div>
             </div>
-
-            <div class="tap-hint">Click</div>
         </div>
     </div>
 
