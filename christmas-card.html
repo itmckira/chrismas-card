@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聖誕快樂 🎄</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --deep-forest: #1a4d2e;
+            --warm-cream: #faf3e0;
+            --rich-burgundy: #8b3a3a;
+            --gold-accent: #d4af37;
+            --soft-snow: #f8f9fa;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #2c5f7c 0%, #1a3a52 50%, #0d1f2d 100%);
+            font-family: 'Crimson Text', serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 雪花容器 */
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            opacity: 0.8;
+            animation: fall linear infinite;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 主要內容 */
+        .container {
+            position: relative;
+            z-index: 2;
+            perspective: 2000px;
+        }
+
+        .instruction {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--warm-cream);
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.9;
+            animation: pulse 2s ease-in-out infinite;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* 賀卡 */
+        .card {
+            width: 600px;
+            height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .card-cover {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-style: preserve-3d;
+            transform-origin: left center;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .card.open .card-cover {
+            transform: rotateY(-165deg);
+        }
+
+        /* 封面 */
+        .card-front {
+            background: linear-gradient(135deg, var(--rich-burgundy) 0%, #6b2d2d 100%);
+            border: 3px solid var(--gold-accent);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            overflow: hidden;
+        }
+
+        .card-front::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .ornament {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.3;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .ornament:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .ornament:nth-child(2) { top: 15%; right: 15%; animation-delay: 0.5s; }
+        .ornament:nth-child(3) { bottom: 20%; left: 15%; animation-delay: 1s; }
+        .ornament:nth-child(4) { bottom: 15%; right: 10%; animation-delay: 1.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        .front-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--gold-accent);
+            text-shadow: 
+                0 0 20px rgba(212, 175, 55, 0.5),
+                0 0 40px rgba(212, 175, 55, 0.3),
+                3px 3px 6px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .front-subtitle {
+            font-size: 1.8rem;
+            color: var(--warm-cream);
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tree-emoji {
+            font-size: 8rem;
+            margin-top: 20px;
+            animation: spin 10s linear infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 內頁 */
+        .card-back {
+            background: linear-gradient(135deg, #1a3a52 0%, #0d2436 50%, #051a2b 100%);
+            border: 3px solid var(--gold-accent);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 40px;
+            z-index: 1;
+        }
+
+        .card-back::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            right: 30px;
+            bottom: 30px;
+            border: 2px dashed var(--gold-accent);
+            border-radius: 10px;
+            opacity: 0.5;
+        }
+
+        .inside-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.6s ease 0.8s;
+        }
+
+        .card.open .inside-content {
+            opacity: 1;
+        }
+
+        .inside-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold-accent);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .message {
+            font-size: 1rem;
+            color: var(--warm-cream);
+            line-height: 1.65;
+            margin-bottom: 15px;
+            max-width: 480px;
+        }
+
+        .highlight {
+            color: var(--gold-accent);
+            font-weight: 600;
+            font-style: italic;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .signature {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--warm-cream);
+            margin-top: 15px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .signature-english {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        .decorative-line {
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--gold-accent), transparent);
+            margin: 10px auto;
+        }
+
+        .stars {
+            font-size: 1.4rem;
+            letter-spacing: 8px;
+            opacity: 0.8;
+            margin: 8px 0;
+            color: var(--gold-accent);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .card {
+                width: 90vw;
+                height: 60vh;
+                max-width: 500px;
+            }
+
+            .front-title {
+                font-size: 2.5rem;
+            }
+
+            .front-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .inside-title {
+                font-size: 1.6rem;
+            }
+
+            .message {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .instruction {
+                font-size: 0.9rem;
+                top: -40px;
+            }
+        }
+
+        /* 點擊提示 */
+        .tap-hint {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--warm-cream);
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover .tap-hint {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- 雪花 -->
+    <div class="snowflakes" id="snowflakes"></div>
+
+    <!-- 主要內容 -->
+    <div class="container">
+        <div class="instruction">✨ Click ✨</div>
+        
+        <div class="card" id="card">
+            <!-- 內頁（底層）-->
+            <div class="card-back">
+                <div class="inside-content">
+                    <h2 class="inside-title">溫馨祝福</h2>
+                    <div class="decorative-line"></div>
+                    
+                    <div class="stars">✧･ﾟ: *✧･ﾟ:*</div>
+                    
+                    <p class="message">
+                        <span class="highlight">Merry Christmas and Happy New Year!</span><br><br>
+                        May this festive season bring you<br>
+                        warmth, joy, and peace.<br>
+                        願這個佳節為您帶來<br>
+                        溫暖、喜悅與平安。<br><br>
+                        May the coming year be filled with<br>
+                        hope, health, and happiness.<br>
+                        願新的一年充滿<br>
+                        希望、健康與幸福。<br><br>
+                        <span class="highlight">Wishing you all the best!</span>
+                    </p>
+                    
+                    <div class="stars">*:･ﾟ✧*:･ﾟ✧</div>
+                    
+                    <div class="decorative-line"></div>
+                    <p class="signature">聯通開發團隊全體祝福<br><span class="signature-english">With Love from ITMC Dev Team 🎅</span></p>
+                </div>
+            </div>
+
+            <!-- 封面（可翻轉的蓋子）-->
+            <div class="card-cover">
+                <div class="card-front">
+                    <div class="ornament">❄️</div>
+                    <div class="ornament">⭐</div>
+                    <div class="ornament">🎁</div>
+                    <div class="ornament">🔔</div>
+                    
+                    <h1 class="front-title">聖誕快樂</h1>
+                    <p class="front-subtitle">Merry Christmas</p>
+                    <div class="tree-emoji">🎄</div>
+                </div>
+            </div>
+
+            <div class="tap-hint">Click</div>
+        </div>
+    </div>
+
+    <script>
+        // 創建雪花
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = ['❄', '❅', '❆'][Math.floor(Math.random() * 3)];
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake.style.animationDuration = Math.random() * 3 + 5 + 's';
+            snowflake.style.fontSize = Math.random() * 1 + 0.5 + 'em';
+            snowflake.style.animationDelay = Math.random() * 5 + 's';
+            
+            document.getElementById('snowflakes').appendChild(snowflake);
+            
+            setTimeout(() => {
+                snowflake.remove();
+            }, 8000);
+        }
+
+        // 持續創建雪花
+        setInterval(createSnowflake, 200);
+
+        // 初始創建一些雪花
+        for (let i = 0; i < 30; i++) {
+            setTimeout(createSnowflake, i * 100);
+        }
+
+        // 賀卡翻轉功能
+        const card = document.getElementById('card');
+        let isOpen = false;
+
+        card.addEventListener('click', function() {
+            isOpen = !isOpen;
+            if (isOpen) {
+                card.classList.add('open');
+            } else {
+                card.classList.remove('open');
+            }
+        });
+
+        // 添加鍵盤支持
+        document.addEventListener('keydown', function(e) {
+            if (e.key === ' ' || e.key === 'Enter') {
+                isOpen = !isOpen;
+                if (isOpen) {
+                    card.classList.add('open');
+                } else {
+                    card.classList.remove('open');
+                }
+            }
+        });
+
+        // 防止文字選取干擾體驗
+        card.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
