@@ -96,8 +96,8 @@
 
         /* 賀卡 */
         .card {
-            width: 600px;
-            height: 400px;
+            width: 800px;
+            height: 500px;
             position: relative;
             transform-style: preserve-3d;
         }
@@ -241,6 +241,10 @@
             opacity: 0;
             transition: opacity 0.6s ease 0.8s;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
         }
 
         .card.open .inside-content {
@@ -248,21 +252,17 @@
         }
 
         .top-greeting {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
             font-size: 1.1rem;
             color: var(--gold-accent);
             font-weight: 600;
             font-style: italic;
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
             white-space: nowrap;
-            margin: 0;
+            margin: 0 0 30px 0;
         }
 
         .content-box {
-            margin-top: 60px;
+            margin-top: 0;
         }
 
         .inside-title {
@@ -276,11 +276,25 @@
         }
 
         .message {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--warm-cream);
-            line-height: 1.65;
+            line-height: 1.8;
             margin-bottom: 12px;
-            max-width: 480px;
+            max-width: 600px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            text-align: left;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .message-left {
+            text-align: left;
+        }
+
+        .message-right {
+            text-align: left;
         }
 
         .highlight {
@@ -301,7 +315,7 @@
         /* 外部團隊簽名 */
         .team-signature {
             position: absolute;
-            bottom: -90px;
+            bottom: -60px;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
@@ -386,19 +400,24 @@
                     
                     <div class="content-box">
                         <div class="stars">✧･ﾟ: *✧･ﾟ:*</div>
-                        
-                        <p class="message">
-                            May this festive season bring you<br>
-                            warmth, joy, and peace.<br>
-                            願這個佳節為您帶來<br>
-                            溫暖、喜悅與平安。<br><br>
-                            May the coming year be filled with<br>
-                            hope, health, and happiness.<br>
-                            願新的一年充滿<br>
-                            希望、健康與幸福。<br><br>
-                            <span class="highlight">Wishing you all the best!</span>
-                        </p>
-                        
+
+                        <div class="message">
+                            <div class="message-left">
+                                May this festive season bring you<br>
+                                warmth, joy, and peace.<br><br>
+                                May the coming year be filled with<br>
+                                hope, health, and happiness.<br><br>
+                                <span class="highlight">Wishing you all the best!</span>
+                            </div>
+                            <div class="message-right">
+                                願這個佳節為您帶來<br>
+                                溫暖、喜悅與平安。<br><br>
+                                願新的一年充滿<br>
+                                希望、健康與幸福。<br><br>
+                                <span class="highlight">祝福您一切順心！</span>
+                            </div>
+                        </div>
+
                         <div class="stars">*:･ﾟ✧*:･ﾟ✧</div>
                     </div>
                 </div>
